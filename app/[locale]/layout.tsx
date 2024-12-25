@@ -23,8 +23,6 @@ export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }
 
-
-
 export default function RootLayout({
   children,
   params: { locale },
@@ -48,21 +46,21 @@ export default function RootLayout({
         ></link>
       </head>
       <body className={lato.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster
-              richColors
-              duration={3000}
-              position="top-right"
-              expand={false}
-              visibleToasts={5}
-            />
-          </ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster
+            richColors
+            duration={3000}
+            position="top-right"
+            expand={false}
+            visibleToasts={5}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
