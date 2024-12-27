@@ -13,7 +13,7 @@ import { ThemeToggler } from "../../ThemeProvider/theme-toggler";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
 import { useTranslation } from "react-i18next";
 import { refineLocalePrefixForRoute, refineRoutePath } from "@/i18nConfig";
-import { NavLink, NavLinksWithName, UserNavLinksWithName } from "@/constants/global-constants";
+import { NavLink, NavLinksWithName } from "@/constants/global-constants";
 import { getNameInitials } from "@/services/utility/utility.service";
 import { UserAvatarDropdown } from "./user-avatar-dropdown";
 import { UserProfileModel } from "@/models/user/user-profile.model";
@@ -43,7 +43,7 @@ export default function UserNavbar() {
           <BrandFullLogo height={24} />
         </div>
 
-        {UserNavLinksWithName.map((item, index) => (
+        {NavLinksWithName.map((item, index) => (
           <Link
             key={index}
             href={item.href}
@@ -69,7 +69,7 @@ export default function UserNavbar() {
           <nav className="grid gap-6 text-lg font-medium">
           <BrandLogo height={26} />
 
-            {UserNavLinksWithName.map((item) => (
+            {NavLinksWithName.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
