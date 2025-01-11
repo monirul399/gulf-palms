@@ -19,6 +19,12 @@ import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
 import { usePathname } from "next/navigation";
 
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
@@ -26,11 +32,17 @@ export default function PublicNavbar() {
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const pathname = usePathname();
-  // console.log({ pathname });
+  const [isHomePage, setIsHomePage] = useState(false);
+
   useEffect(() => {
-    if (pathname !== "/") {
-      setShowNavbar(true);
+    if (pathname === "/" || pathname === "/ar" || pathname === "en") {
+      setIsHomePage(true);
+    } else {
+      setIsHomePage(false);
     }
+  }, [pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
@@ -50,22 +62,24 @@ export default function PublicNavbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, pathname]);
+  }, [lastScrollY]);
 
   const renderNavLinks = () =>
     NavLinksWithName.map((item, index) => {
       if (item.children) {
         return (
-          <div key={index} className="group !text-[13px] font-semibold">
-            <Link
-              href={item.href}
-              className="text-white hover:text-gray-200 transition-colors flex items-center gap-1"
-            >
-              {t(`navigation.${item.name}`)}
-              <ChevronDown className="h-3 w-3 text-secondary" />
-            </Link>
-            <div
-              className={`absolute hidden group-hover:block bg-transparent mt-6  bg-white  ${
+          <HoverCard key={index} openDelay={100} closeDelay={100}>
+            <HoverCardTrigger asChild>
+              <Link
+                href={item.href}
+                className="text-white hover:text-gray-200 transition-colors flex items-center gap-1 !text-[13px] font-semibold font-sans "
+              >
+                {t(`navigation.${item.name}`)}
+                <ChevronDown className="w-3 text-secondary opacity-90" />
+              </Link>
+            </HoverCardTrigger>
+            <HoverCardContent
+              className={`bg-transparent mt-6  bg-white  ${
                 item.href.includes("shop")
                   ? "w-full left-0 p-12"
                   : "w-[220px] p-4"
@@ -75,13 +89,13 @@ export default function PublicNavbar() {
                 <Link
                   key={idx}
                   href={child.href}
-                  className="block duration-1000 px-4 py-2 text-gray-700 hover:bg-gray-200 "
+                  className="block  px-4 py-2 text-gray-700 hover:bg-gray-200 "
                 >
                   {t(`navigation.${child.name}`)}
                 </Link>
               ))}
-            </div>
-          </div>
+            </HoverCardContent>
+          </HoverCard>
         );
       }
 
@@ -89,7 +103,7 @@ export default function PublicNavbar() {
         <Link
           href={item.href}
           key={index}
-          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold"
+          className="text-white hover:text-gray-200 transition-colors text-[13px] font-semibold font-sans"
         >
           {t(`navigation.${item.name}`)}
         </Link>
@@ -98,24 +112,37 @@ export default function PublicNavbar() {
 
   return (
     <div
-      className={`w-full fixed duration-500 top-0 z-50 left-0 transition-transform ${
-        isScrolled ? "bg-primary shadow-lg" : "bg-transparent "
-      } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
+      className={`w-full fixed duration-500 top-0 z-[10000] left-0 transition-transform flex items-center
+       
+        ${showNavbar ? "translate-y-0" : "-translate-y-full"}
+        ${
+          isHomePage
+            ? ` ${
+                isScrolled
+                  ? "bg-primary shadow-lg h-[60px]"
+                  : "bg-transparent h-[105px]"
+              }`
+            : "bg-primary h-fit"
+        }`}
     >
-      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto ">
-        <div className=" flex pt-[18px]  items-center gap-4 min-h-[4rem] pb-2 lg:pb-1">
+      <div className="max-w-[100vw] overflow-x-hidden lg:max-w-content mx-auto lg:w-[1396px] px-4">
+        <div className=" flex items-center gap-6 pb-2 lg:pb-1">
           {/* Left Navigation */}
           <nav className="hidden lg:flex lg:items-center lg:gap-6 w-full ">
             <div className="w-[170px]">
               <div
-                className={`transition-all duration-500 ${
-                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] h-[77px]"
+                className={`transition-all duration-500 grid place-content-center ${
+                  isScrolled ? "w-[125px] h-[60px]" : "w-[170px] !h-[77px]"
                 }`}
               >
-                <BrandFullLogo height={77} />
+                {isScrolled ? (
+                  <BrandFullLogo height={60} width={125} />
+                ) : (
+                  <BrandFullLogo height={77} width={170} />
+                )}
               </div>
             </div>
-            <div className="flex items-center gap-4 w-[80%] flex-wrap justify-center">
+            <div className="flex items-center gap-4 min-w-[758px] justify-evenly flex-wrap ">
               {renderNavLinks()}
             </div>
           </nav>
@@ -183,12 +210,12 @@ export default function PublicNavbar() {
           >
             <Link
               href="/signup"
-              className="!text-[13px] font-semibold text-secondary hover:text-secondary-foreground uppercase"
+              className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase"
             >
               Login / Register
             </Link>
           </Button>
-          <div className="hidden lg:flex flex-row-reverse items-center gap-4 text-secondary">
+          <div className="hidden  lg:flex flex-row-reverse items-center gap-4 text-secondary ">
             <div className="relative">
               <ShoppingCart className="w-5 h-5" />
               <p className="absolute -top-1 -right-2 text-xs bg-primary rounded-full h-4 grid place-content-center w-4 p-1">
@@ -203,7 +230,7 @@ export default function PublicNavbar() {
             </div>
           </div>
           {/* Right Actions */}
-          <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit">
+          <div className="ml-auto hidden lg:flex items-center gap-4 min-w-fit ">
             <p className="!text-[13px] font-semibold text-secondary">
               0.000 KD
             </p>

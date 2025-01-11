@@ -16,19 +16,26 @@ async function HomePage({
   params: { locale: string };
 }) {
   return (
-    <div>
-      <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-[500px]">
-        <HeroSection />
-        <HomeFirstProductGrid />
+    <div className="max-w-[100vw] md:w-[1370px] mx-auto bg-white h-fit max-h-fit space-y-[0px]">
+      <HeroSection />
+      <HomeFirstProductGrid />
+      <div className="pt-[100px]">
         <RecentProducts />
-        <ShowRoom />
-        <Services />
-        <ProductsShowCase />
-        <HomeSecondProductGrid />
-        <WhoWeAre />
-        <LocationMap />
-        <VideoShowCase />
       </div>
+      <ShowRoom />
+      <div className="pt-[396px] pb-[50px]">
+        <Services />
+      </div>
+      <ProductsShowCase />
+      <HomeSecondProductGrid />
+      <div className="">
+        <WhoWeAre />
+        <div>
+          <LocationMap />
+        </div>
+      </div>
+      <VideoShowCase />
+      <div className="pt-1"></div>
     </div>
   );
 }
