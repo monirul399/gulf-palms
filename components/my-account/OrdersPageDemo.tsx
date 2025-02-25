@@ -2,11 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 
-<<<<<<<< HEAD:components/my-account/OrderPage.tsx
-export default function OrderPage() {
-========
 export default function OrdersPageDemo() {
->>>>>>>> dffd440e53cf53a42fc583cd4cb9b6f699c2b5ce:components/my-account/OrdersPageDemo.tsx
   return (
     <div>
       {/* Desktop View */}
@@ -94,4 +90,3 @@ export default function OrdersPageDemo() {
     </div>
   )
 }
-

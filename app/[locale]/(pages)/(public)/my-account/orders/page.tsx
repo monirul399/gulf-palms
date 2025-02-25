@@ -8,8 +8,6 @@ import dayjs from "dayjs";
 import SkeletonType2 from "@/components/skeleton/skeleton-type2";
 import { useEffect, useState } from "react";
 
-<<<<<<< HEAD
-=======
 export default function OrdersPage() {
 
   const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
@@ -44,16 +42,13 @@ export default function OrdersPage() {
     getOrders();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderConfig]);
->>>>>>> dffd440e53cf53a42fc583cd4cb9b6f699c2b5ce
 
-export default function OrdersPage({ orders }:{orders:any[] | null}) {
-  if (!orders) return <SkeletonType2 />;
   return (
     <div>
       {/* Desktop View */}
-      { orders.length === 0 && <SkeletonType2/>}
+      { orders === null && <SkeletonType2/>}
       {
-        orders .length !== 0 &&
+        orders !== null &&
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -175,4 +170,3 @@ export default function OrdersPage({ orders }:{orders:any[] | null}) {
     </div>
   )
 }
-
