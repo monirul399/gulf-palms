@@ -4,10 +4,47 @@ import { Button } from "@/components/ui/button";
 import { OrderService } from "@/services/api/order.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { getTotalQuantity, orderStatusesToReadableSentence } from "@/services/utility/utility.service";
-import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import SkeletonType2 from "@/components/skeleton/skeleton-type2";
+import { useEffect, useState } from "react";
 
+<<<<<<< HEAD
+=======
+export default function OrdersPage() {
+
+  const axiosInstanceWithLoader = CreateAxiosInstanceWithLoader(true, true);
+
+  // Orders
+  const [orderConfig, setOrderConfig] = useState({}); // page: 1, per_page: 10
+  const [orders, setOrders] = useState<any[] | null>(null);
+
+  const getOrders = async () => {
+    setOrders(null);
+
+    OrderService.Get(orderConfig, axiosInstanceWithLoader)
+      .then(response => {
+        setOrders(response || []);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  function onOrderCancel(orderId: number) {
+    OrderService.Cancel(orderId, axiosInstanceWithLoader)
+      .then(response => {
+        getOrders();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  useEffect(() => {
+    getOrders();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderConfig]);
+>>>>>>> dffd440e53cf53a42fc583cd4cb9b6f699c2b5ce
 
 export default function OrdersPage({ orders }:{orders:any[] | null}) {
   if (!orders) return <SkeletonType2 />;
@@ -42,9 +79,12 @@ export default function OrdersPage({ orders }:{orders:any[] | null}) {
                   <td className="px-4 py-4">
                     <span className="text-[#ff9666]">{order.total} {order.currency_symbol}</span> for {getTotalQuantity(order?.line_items) || 0} items
                   </td>
-                  <td className="px-4 py-4 pl-[100px]">
+                  <td className="px-4 py-4 pl-[100px] flex justify-end gap-2">
+                    {/* <span>status: {order.status}</span><br></br>
+                    <span>{order.needs_payment ? 'needs_payment' : 'no needs_payment'}</span><br></br>
+                    <span>{order.needs_processing ? 'needs_processing' : 'no needs_processing'}</span><br></br> */}
                     {
-                      order.needs_payment && !order.date_paid &&
+                      (order.status === 'processing' || order.status === 'pending') && order.is_editable && getTotalQuantity(order?.line_items) > 0 &&
                       <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
                         PAY
                       </Button>
@@ -55,8 +95,8 @@ export default function OrdersPage({ orders }:{orders:any[] | null}) {
                       </Button>
                     }
                     {
-                      order.status !== 'cancelled' && !order.date_paid && !order.date_completed &&
-                      <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                      (order.status === 'processing' || order.status === 'pending') && order.is_editable &&
+                      <Button onClick={() => onOrderCancel(order.id)} size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
                         CANCEL
                       </Button>
                     }
@@ -117,17 +157,17 @@ export default function OrdersPage({ orders }:{orders:any[] | null}) {
         <div className="flex justify-between items-start">
           <span className="text-gray-800 text-[12.5px] font-[600]">ACTIONS</span>
           <div className="text-right">
-          <div className="flex justify-end gap-2">
-          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-            PAY
-          </Button>
-          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-            VIEW
-          </Button>
-          <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
-            CANCEL
-          </Button>
-        </div>
+            <div className="flex justify-end gap-2">
+              <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                PAY
+              </Button>
+              <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                VIEW
+              </Button>
+              <Button size="sm" className="bg-[#ff9666] hover:bg-[#ff8652] text-white">
+                CANCEL
+              </Button>
+            </div>
           </div>
         </div>
         
