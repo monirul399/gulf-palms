@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/providers/Authprovider";
 import { UserService } from "@/services/api/user.service";
 import CreateAxiosInstanceWithLoader from "@/services/utility/axios-with-loader.service";
 import { useEffect, useState } from "react";

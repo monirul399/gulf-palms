@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import GetInTouch from "@/components/common/GetInTouch";
 import { CustomBreadCrumb } from "@/components/common/CustomBreadCrumb";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/providers/Authprovider";
 import { onLogout } from "@/services/utility/utility.service";
 
 const breadcrumbLinks = [

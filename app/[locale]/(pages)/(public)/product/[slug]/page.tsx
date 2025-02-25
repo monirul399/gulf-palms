@@ -13,7 +13,7 @@ import { ProductService } from "@/services/api/product.service";
 import { ProductCategoryModel } from "@/models/product/product";
 import { ProductCategoryService } from "@/services/api/product-category.service";
 import { generateIdToCategoryRecord } from "@/services/utility/utility.service";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/providers/Authprovider";
 
 const fertilizationData = [
   { size: "Small", details: "Apply 50g of organic fertilizer every 2 months." },
