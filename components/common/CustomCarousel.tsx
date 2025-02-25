@@ -52,7 +52,7 @@ export default function CustomCarousel({
       onClick={onClick}
     >
       <ChevronLeft
-        size={34}
+      size={34}
         className="translate-x-[20px] lg:translate-x-[-100px] text-gray-600 lg:group-hover:translate-x-0 transition-transform duration-1000"
       />
     </div>

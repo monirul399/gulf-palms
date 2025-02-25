@@ -8,14 +8,15 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import SkeletonType2 from "@/components/skeleton/skeleton-type2";
 
-export default function OrdersPage({ orders = null }: { orders: any[] | null }) {
 
+export default function OrdersPage({ orders }:{orders:any[] | null}) {
+  if (!orders) return <SkeletonType2 />;
   return (
     <div>
       {/* Desktop View */}
-      { orders === null && <SkeletonType2/>}
+      { orders.length === 0 && <SkeletonType2/>}
       {
-        orders !== null &&
+        orders .length !== 0 &&
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
