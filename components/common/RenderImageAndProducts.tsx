@@ -80,6 +80,7 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
 
   const { addToCart } = useCart();
 
+
   const handleAddToCart = () => {
     addToCart({
       id: productId,
@@ -141,9 +142,9 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                     className={`text-xs sm:text-sm text-gray-500 overflow-hidden transition-all duration-300`}
                     style={{
                       height:
-                        expandedDescriptionId === product.productId
-                          ? "fit-content"
-                          : "48px sm:72px",
+                        expandedDescriptionId == product.productId
+                          ? " fit-content "
+                          : " 48px ",
                     }}
                   >
                     {product.description}
@@ -204,9 +205,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
           <div className="w-full h-full sm:h-[280px] duration-700 overflow-hidden relative">
             <img
               src={
-                imageFileOrUrl ||
                 images?.[0]?.src ||
-                images?.[0] ||
+                imageFileOrUrl ||
                 "/placeholder.svg"
               }
               alt={name}
@@ -219,9 +219,8 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
             <img
               src={
                 images?.[1]?.src ||
-                images?.[1] ||
-                imageFileOrUrl ||
                 images?.[0]?.src ||
+                imageFileOrUrl ||
                 "/placeholder.svg"
               }
               alt={name}
@@ -282,7 +281,13 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                   >
                     <ShoppingCart
                       className="w-4 h-4 sm:w-5 sm:h-5"
-                      onClick={handleAddToCart}
+                      onClick={()=>{
+                        const isSelected =  selectProductId === productId;
+                        const isSheetOpenTrue = isSheetOpen;
+                        if(isSelected && isSheetOpenTrue){
+                          handleAddToCart()
+                        }
+                      }}
                     />
                   </p>
                 </div>
@@ -353,12 +358,18 @@ const RenderImageAndProducts: React.FC<RenderImageAndProductsProps> = ({
                 setSelectProductId(productId);
                 setIsSheetOpen(true);
               }}
-              className={`lg:hidden absolute left-2 p-1 bottom-1 grid place-content-center bg-primary shadow-md h-[35px] ${
-                selectProductId === productId ? "w-full z-[20]" : "w-[35px]"
+              className={`lg:hidden absolute left-2 p-1 bottom-0 grid place-content-center bg-primary shadow-md h-[35px] ${
+                selectProductId === productId ? "w-full z-[20] h-[45px]" : "w-[35px]"
               } `}
             >
               <ShoppingCart
-                onClick={handleAddToCart}
+                onClick={()=>{
+                  const isSelected =  selectProductId === productId;
+                  const isSheetOpenTrue = isSheetOpen;
+                  if(isSelected && isSheetOpenTrue){
+                    handleAddToCart()
+                  }
+                }}
                 className="cursor-pointer w-full text-white"
               />
             </div>

@@ -16,7 +16,7 @@ import BrandFullLogo from "../../logo/brand-full-logo";
 import { LocaleToggler } from "../../LocaleProvider/locale-togger";
 import { NavLinksWithName } from "@/constants/global-constants";
 import { useTranslation } from "react-i18next";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   HoverCard,
@@ -30,8 +30,13 @@ import { DesktopNav } from "./DesktopNav";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
 import SearchDrawer from "@/components/search/SearchDrawer";
+<<<<<<< HEAD
 import { useAuth } from "@/providers/Authprovider";
 import { ClientRoutes, RouteService } from "@/services/utility/router.service";
+=======
+import { useAuth } from "@/providers/AuthProvider";
+import { ClientRoutes } from "@/services/utility/router.service";
+>>>>>>> b4af76502693ffc8cb910497433c67f6f08311bf
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,9 +48,8 @@ export default function PublicNavbar() {
   const pathname = usePathname();
   const [isHomePage, setIsHomePage] = useState(false);
   const { cartItems, subtotal } = useCart();
-
+  const router = useRouter();
   const { user } = useAuth();
-  const routeService = new RouteService();
 
   useEffect(() => {
     if (
@@ -179,18 +183,14 @@ export default function PublicNavbar() {
           </div>
 
           {user && (
-            <Button
-              asChild
-              variant="ghost"
+            <Link
+              href={ClientRoutes.User.MyAccountDashboard}
               className="hover:bg-transparent w-fit p-0 hidden lg:flex close_btn"
-              onClick={() =>
-                routeService.redirectTo(ClientRoutes.User.MyAccountDashboard)
-              }
             >
-              <p className="!text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
+              <span className="w-[5.5rem] !text-[13px] font-semibold text-secondary hover:text-secondary uppercase cursor-pointer">
                 My Account
-              </p>
-            </Button>
+              </span>
+            </Link>
           )}
           {!user && (
             <SideDrawer
