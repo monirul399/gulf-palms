@@ -30,13 +30,9 @@ import { DesktopNav } from "./DesktopNav";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { useCart } from "@/providers/CartProvider";
 import SearchDrawer from "@/components/search/SearchDrawer";
-<<<<<<< HEAD
-import { useAuth } from "@/providers/Authprovider";
-import { ClientRoutes, RouteService } from "@/services/utility/router.service";
-=======
-import { useAuth } from "@/providers/AuthProvider";
+
 import { ClientRoutes } from "@/services/utility/router.service";
->>>>>>> b4af76502693ffc8cb910497433c67f6f08311bf
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function PublicNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
