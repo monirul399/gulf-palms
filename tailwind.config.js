@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Lato", "Arial", "Helvetica", "sans-serif"],
+        serif: ["sans-serif", "Lato", "Arial", "Helvetica"],
         arabic: ["var(--neo-arabic-font)", "sans-serif"],
       },
       maxWidth: {
@@ -24,6 +25,7 @@ module.exports = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        lightGray: "#777777",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
